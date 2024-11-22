@@ -35,6 +35,7 @@ export type Config = {
   copy_milestone: boolean;
   copy_assignees: boolean;
   copy_requested_reviewers: boolean;
+  draft: boolean;
   experimental: Experimental;
 };
 
@@ -368,7 +369,7 @@ export class Backport {
             head: branchname,
             base: target,
             maintainer_can_modify: true,
-            draft: uncommitedShas !== null,
+            draft: this.config.draft || uncommitedShas !== null,
           });
 
           if (new_pr_response.status != 201) {
